@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+            * element that contains the map. */
+        #map {
+            height: 80vh;
+            width: 40vw;
+        }
+
+        #inputs {
+            margin: 0;
+        }
+
+        .column {
+            padding: 10px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="row" style="column-count: 2;">
+        <div class="column">
+            <div id="map" align="left" style=""></div>
+        </div>
+        <div class="column">
+            <div>
+                <form class="form-group">
+                    <label for="address">Workplace Address</label><br />
+                    <input id="address" type="text" name="address" class="form-control">
+                    <br>
+                    <input type="button" value="Go!" class="btn btn-success" onclick="codeAddress();">
+
+                    <label for="average-commute">Average Commute</label>
+                    <select id="commute" class="form-control">
+                        <option value="default">Select one:</option>
+                        <option value="1">Less than 5 minutes</option>
+                        <option value="2">5-10 minutes</option>
+                        <option value="3">10-15 minutes</option>
+                        <option value="4">15-20 minutes</option>
+                        <option value="5">20-25 minutes</option>
+                        <option value="6">25-30 minutes</option>
+                        <option value="7">30-35 minutes</option>
+                        <option value="8">35-40 minutes</option>
+                        <option value="9">40-45 minutes</option>
+                        <option value="10">50-55 minutes</option>
+                        <option value="11">55-60 minutes</option>
+                        <option value="12">More than 60 minutes</option>
+                    </select>
+                    <br>
+                    <input type="button" value="Show Commute!" class="btn btn-success" onclick="createCircle(); findRegions();">
+
+                    <label for="income">Income</label>
+                    <select id="income" class="form-control" type="button">
+                        <option value="default">Select one:</option>
+                        <option value="20_30">$20,000-$30,0000</option>
+                        <option value="31_40">$31,000-$40,0000</option>
+                        <option value="41_50">$41,000-$50,0000</option>
+                        <option value="51_60">$51,000-$60,0000</option>
+                        <option value="61_70">$61,000-$70,0000</option>
+                        <option value="71_80">$71,000-$80,0000</option>
+                        <option value="81_90">$81,000-$90,0000</option>
+                        <option value="91_100">$91,000-$100,0000</option>
+                        <option value="101_110">$101,000-$110,0000</option>
+                        <option value="111_120">$111,000-$120,0000</option>
+                    </select>
+                    <br />
+                    <input type="button" value=" Get Prices!" class="btn btn-success" onclick="removeCircle();">
+                </form>
+            </div>
+            <div id="county">
+                County Selection
+            </div>
+            <div id="content"></div>
+            <div id="affordable?">
+                <input type="button" value="Get Info!" class="btn btn-success" onclick="getContent();">
+            </div>
+        </div>
+    </div>
+    <script src="~/js/site.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC02-_UD3o5lAK0S8oQpK6DBEETtH4S0wA&callback=initMap"
+            async defer></script>
+
+</body>
+

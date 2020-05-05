@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Test.Models.Region>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+            * element that contains the map. */
+        #map {
+            height: 80vh;
+            width: 40vw;
+        }
+
+        #inputs {
+            margin: 0;
+        }
+
+        .column {
+            padding: 10px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="row" style="column-count: 2;">
+        <div class="column">
+            <div id="map" align="left" style=""></div>
+        </div>
+        <div class="column">
+            <div>
+                <form class="form-group">
+                    <label for="address">Workplace Address</label><br />
+                    <input id="address" type="text" name="address" class="form-control">
+                    <br>
+                    <input type="button" value="Go!" class="btn btn-success" onclick="codeAddress();">
+                    <br />
+                    <br />
+                    <label for="average-commute">Average Commute</label>
+                    <select id="commute" class="form-control">
+                        <option value="default">Select one:</option>
+                        <option value="1">Less than 5 minutes</option>
+                        <option value="2">5-10 minutes</option>
+                        <option value="3">10-15 minutes</option>
+                        <option value="4">15-20 minutes</option>
+                        <option value="5">20-25 minutes</option>
+                        <option value="6">25-30 minutes</option>
+                        <option value="7">30-35 minutes</option>
+                        <option value="8">35-40 minutes</option>
+                        <option value="9">40-45 minutes</option>
+                        <option value="10">50-55 minutes</option>
+                        <option value="11">55-60 minutes</option>
+                        <option value="12">More than 60 minutes</option>
+                    </select>
+                    <br>
+                    <input type="button" value="Show Commute!" class="btn btn-success" onclick="createCircle(); findRegions();">
+                    <br />
+                    <br />
+                    <input type="button" value="Delete Circle" class="btn btn-success" onclick="removeCircle();" />
+                </form>
+            </div>
+            <div id="county">
+                County Selection
+            </div>
+            <div id="content">
+                
+            </div>
+            <div>
+                <input type="button" value=" Get Info!" class="btn btn-success" onclick="getInfo();">
+            </div>
+        </div>
+    </div>
+    <script src="~/js/site.js"></script>
+    <script>
+        function getInfo() {
+            var test = testimonial.innerText;
+            location.assign('https://localhost:44376/Regions/Details/' + test);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC02-_UD3o5lAK0S8oQpK6DBEETtH4S0wA&callback=initMap"
+            async defer></script>
+
+</body>
+

@@ -1,0 +1,64 @@
+﻿@model Test.Models.Region
+
+@{
+    ViewData["Title"] = "Details";
+    var income = @Html.DisplayFor(model => model.price);
+    var principal = 0.1;
+    var rate = 0.04;
+    var n = 360;
+    var payment = principal * (rate * Math.Pow((1 + rate), n)) / (Math.Pow((1 + rate), n - 1));
+}
+
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Region Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.regionName)
+        </dd>
+        <dt class="col-sm-2">
+            City
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.city)
+        </dd>
+        <dt class="col-sm-2">
+            State
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.state)
+        </dd>
+        <dt class="col-sm-2">
+            Average Price
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.price)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <label for="income">Enter Monthly Gross Income:</label>
+    <input id="income" type="text" name="address" class="form-control">
+    <br />
+    <input type="button" value="Go!" class="btn btn-success" onclick="affordable();">
+    <br />
+</div>
+
+<script>
+    function affordable() {
+        var principal = @principal*@income;
+
+        var income = parseFloat(document.getElementById('income').value);
+        var numerator = @rate* Math.pow((1 +@rate), @n);
+        var denom = Math.pow((1 +@rate), @n) - 1;
+        var mortgagePayment = principal *(numerator / denom);
+        if (income * 0.3 > mortgagePayment) {
+            alert("Affordable!\n 30% of your monthly income is more than the monthly mortgage payment of " + mortgagePayment);
+        }
+    }
+</script>
